@@ -6,24 +6,32 @@ const reducer = (state, action) =>{
     if(state === undefined){
         state = {
             iAnswers: [],
-            cAnswer: ""
+            cAnswer: "",
+            answers: [],
+            pickedAnswer: ""
         }
     }
 
     switch(action.type){
         case "HANDLE_ANSWERS":
 
-        // switch
-
             return {
-                ...state,
-                answers: action.incorrect.concat(action.correct)
+                answers: [...action.incorrect, action.correct]
             }
-            default:
-                return state
+
+        case "PICK_ANSWER":
+
+            switch(action.answer){
+
+                case(action.cAnswer):
+                    console.log("Correct Answer!");
+                    break;
+                default: console.log("Incorrect Answer!");
             }
+
+        default: return state
+    }
 
 }
-
 export default reducer
 

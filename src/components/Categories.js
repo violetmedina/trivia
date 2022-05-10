@@ -44,7 +44,7 @@ const Categories = () => {
                 </select>
                 <button type='submit'>Submit</button>
             </form>
-            {finalValue != "" ? <Game value={finalValue} text={finalCategory}/> : null}
+            {finalValue !== "" ? <Game value={finalValue} text={finalCategory}/> : null}
         </>
     )
 }

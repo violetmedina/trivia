@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <div id='header'><b>HEADER</b><br/>
-        <Link to='/'>Home</Link><br/>
+        <Link to='/categories'>Play Game!</Link><br/>
       </div>
     </>
   )
