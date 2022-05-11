@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Game from './Game'
+import './main.css'
 import {useDispatch, useSelector} from 'react-redux'
 import defineCategories from '../actions/defineCategories'
 

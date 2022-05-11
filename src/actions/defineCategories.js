@@ -10,7 +10,7 @@ const defineCategories = () => {
             category: 'General Knowledge'
         },
         {
-            value: 10,
+            value: 11,
             category: 'Movies'
         },
         {

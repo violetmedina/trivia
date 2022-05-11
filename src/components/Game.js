@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import combineAnswers from '../actions/answersAction';
+import { useDispatch, useSelector } from 'react-redux';
 import correctAnswer from '../actions/correctAnswer';
+import Card from './Card';
+import './main.css'
 import he from 'he'
 
 
@@ -10,11 +11,11 @@ const Game = ({ value, text }) => {
     // receive info from API from parent component, Categories, then display Q and A, A in random order
 
     const [triviaData, setTriviaData] = useState([])
-    const [cAnswer, setCAnswer] = useState([])
-    const [iAnswers, setIAnswers] = useState([])
-    const [pickedAnswer, setPickedAnswer] = useState('')
+    const [pickedAnswer, setPickedAnswer] = useState("")
+    const [pickedQuestion, setPickedQuestion] = useState("")
 
     const answersDisplay = useSelector(state => state.answerReducer.answers)
+    const cAnswer = useSelector(state => state.answerReducer.cAnswer)
 
     useEffect(() => {
 
@@ -29,23 +30,13 @@ const Game = ({ value, text }) => {
 
     const dispatch = useDispatch();
 
-    const handleClick = (e, ca, ia) => {
-        e.preventDefault();
-        setCAnswer(ca);
-        setIAnswers(ia);
-        dispatch(combineAnswers(iAnswers, cAnswer));
-    }
-
-    console.log(triviaData)
-    console.log(answersDisplay)
-
     const handleAnswer = (e, answer) => {
         e.preventDefault();
         setPickedAnswer(answer)
         dispatch(correctAnswer(cAnswer, answer))
     }
 
-    shuffleArray(answersDisplay)
+    // shuffleArray(answersDisplay)
 
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
@@ -57,35 +48,55 @@ const Game = ({ value, text }) => {
         return array;
     }
 
+    function determineAnswer(pickedAnswer, cAnswer) {
+        console.log("Correct Answer:", cAnswer)
+        console.log("Selected Answer:", pickedAnswer)
+        {if(pickedAnswer === cAnswer){ //set a value for correct to create the X or O
+            return "CORRECT!"
+        }
+        else {
+            return "INCORRECT!"
+        }}
+    }
 
     return (
         <>
-            <h2>Selected Category: {text}</h2>
-            Questions:
-                {triviaData.map((question, index) => {
-                    return (
-                        <ul>
-                            <div id="questionDetails" key={index}>
-                                <a href='#' onClick={(e) => handleClick(e, question.correct_answer, question.incorrect_answers)}>
-                                {he.decode(question.question)}
-                                </a>
-                            </div><br/>
-                        </ul>
-                    )
-                })}<br></br>
-            Answers:
-                {answersDisplay.map((answer, index) => {
-                    //call function to randomize answers
-                    return (
-                    <div>
-                        <ul key={index}><a href='#' onClick={(e) => handleAnswer(e, answer)}>{answer}</a></ul>
-                    </div>
-                    )
-                })
-                }
+            <br/><h2>Selected Category: {text}</h2>
 
-            </>
+            <div className="container">
+                <div className="row">
+                    {triviaData.map((question, index) => {
+                        return (
+                            <div id="cards" className="col-4 d-flex flex-wrap justify-content-center">
+                                <Card question={question} index={index}/>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+
+            <div className="container"><br />
+                <h5 className='row'>Selected Question: {he.decode(pickedQuestion)}</h5><br />
+                Answers:
+                <div className="row">
+                    {answersDisplay.map((answer, index) => {
+                        return (
+                            <div className='col-6'>
+                                <a href='#' key={index} onClick={(e) => handleAnswer(e, answer)}>{index + 1}. {he.decode(answer)}</a>
+                            </div>
+                        )
+                    })
+                    }
+                </div>
+
+            <div>
+                Your Answer: {he.decode(pickedAnswer)}<br/>
+                {determineAnswer(pickedAnswer, cAnswer)}
+            </div>
+            </div>
+
+        </>
     )
 }
 
-            export default Game
+export default Game

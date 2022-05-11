@@ -16,7 +16,8 @@ const reducer = (state, action) =>{
         case "HANDLE_ANSWERS":
 
             return {
-                answers: [...action.incorrect, action.correct]
+                answers: [...action.incorrect, action.correct],
+                cAnswer: action.correct
             }
 
         case "PICK_ANSWER":
@@ -24,9 +25,11 @@ const reducer = (state, action) =>{
             switch(action.answer){
 
                 case(action.cAnswer):
+                    
                     console.log("Correct Answer!");
                     break;
                 default: console.log("Incorrect Answer!");
+                break;
             }
 
         default: return state
