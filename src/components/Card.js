@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import combineAnswers from '../actions/answersAction';
 import './main.css'
 import he from 'he'
 
-const Card = ({question}, index) => {
+const Card = ({question, index}) => {
 
-    const [cAnswer, setCAnswer] = useState([])
-    const [pickedQuestion, setPickedQuestion] = useState("")
     const [isFlipped, setIsFlipped] = useState(false)
+    const [hideAnswer, setHideAnswer] = useState(false)
+
+    // const isCorrect = useSelector(state => state.answerReducer.isCorrect)
+    const amICorrect = useSelector(state => state.answerReducer.boardState[index])
+
 
     const dispatch = useDispatch();
 
-    const handleQuestion = (e, ca, ia, que) => {
+    const handleQuestion = (e, ca, ia, index) => {
         e.preventDefault();
-        setPickedQuestion(que);
-        setCAnswer(ca);
-        dispatch(combineAnswers(ia, ca));
-
+        dispatch(combineAnswers(ia, ca, index));
     }
 
     const flipCard = (e) => {
         setIsFlipped(true)
-        handleQuestion(e, question.correct_answer, question.incorrect_answers, question.question)
+        handleQuestion(e, question.correct_answer, question.incorrect_answers, index)
     }
 
     return (
@@ -32,11 +32,25 @@ const Card = ({question}, index) => {
         <div id="card" className="card">
             <div onClick={(e) => flipCard(e)} className={isFlipped ? "card__inner is-flipped" : "card__inner"}>
                 {/* <!-- front of card --> */}
-                    <div className="card__face card__face--front"></div>
+                <div className="card__face card__face--front"></div>
                 {/* <!-- back of card --> */}
                 <div className="card__face card__face--back">
-                    <div className="card__content">
-                        <div id="questionDetails" key={index}>
+                    <div className={
+                        amICorrect[0] === false
+                        ?
+                        "card__content"
+                        :
+                        amICorrect[1] === 'default'
+                        ?
+                        "card__content"
+                        :
+                        amICorrect[1] === "yes"
+                        ?
+                        "card__content is-o"
+                        :
+                        "card__content is-x"
+                        }>
+                        <div id="questionDetails">
                                 <b>{he.decode(question.question)}</b>
                         </div>
                     </div>

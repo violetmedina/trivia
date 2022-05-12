@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom'
 import './App.css'
 
 
-const App = () => {
 
+const App = () => {
 
 
   return (
     <>
-    <div id='home'>
-      <b>APP HOME PAGE</b><br/>
-      <Link to='/categories'>Play Game!</Link>
-    </div></>
+    <Link to='/categories'><img src="/play-now-button.gif" alt='Start Game'/></Link>
+    </>
   )
 }
 

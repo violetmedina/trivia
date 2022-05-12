@@ -7,7 +7,6 @@ import {Provider} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
-import Game from './components/Game'
 import Categories from './components/Categories';
 
 import BaseLayout from './components/layout/BaseLayout';
@@ -27,7 +26,6 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />}/>
           <Route path='/categories' element={<Categories />}/>
-          <Route path='/game' element={<Game />}/>
         </Routes>
       </BaseLayout>
     </Router>

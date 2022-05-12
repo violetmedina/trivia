@@ -1,12 +1,11 @@
 
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import './header.css'
 
 const Header = () => {
   return (
     <>
-      <div id='header'></div>
+    <div className='header responsive'></div>
     </>
   )
 }

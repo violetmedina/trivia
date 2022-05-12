@@ -1,10 +1,10 @@
 
 //WORKING!
-const combineAnswers = (incorrect, correct) => {
+const combineAnswers = (incorrect, correct, index) => {
 
     return{
     type: "HANDLE_ANSWERS",
-    incorrect, correct
+    incorrect, correct, index
     }
 }
 

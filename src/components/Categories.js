@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Game from './Game'
 import './main.css'
+import Game from './Game'
 import {useDispatch, useSelector} from 'react-redux'
 import defineCategories from '../actions/defineCategories'
 
@@ -36,16 +36,18 @@ const Categories = () => {
 
     return (
         <>
-            <form className="flexCont" onSubmit={handleSubmit}>
-                <select onChange={handleChange}>
-                    <option defaultValue={'Pick A Category'} hidden>Pick A Category</option>
-                    {Array.isArray(categories) ?
-                    categories.map(category => <option key={category.category} value={category.value}>{category.category}</option>)
-                    : ""}
-                </select>
-                <button type='submit'>Submit</button>
-            </form>
-            {finalValue !== "" ? <Game value={finalValue} text={finalCategory}/> : null}
+        <div><a href='/'>Home</a></div>
+        <form className="flexCont" onSubmit={handleSubmit}>
+            <select onChange={handleChange}>
+                <option defaultValue={'Pick A Category'} hidden>Pick A Category</option>
+                {Array.isArray(categories) ?
+                categories.map(category => <option key={category.category} value={category.value}>{category.category}</option>)
+                : ""}
+            </select>
+            <button type='submit'>Submit</button>
+        </form>
+        {finalValue !== "" ? <Game value={finalValue} text={finalCategory}/> : null}
+
         </>
     )
 }
