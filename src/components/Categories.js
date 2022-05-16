@@ -21,8 +21,6 @@ const Categories = () => {
 
     }, [])
 
-        console.log(categories)
-
     const handleSubmit = (e) => {
         e.preventDefault()
         setFinalCategory(selectedCategory)
@@ -36,13 +34,16 @@ const Categories = () => {
 
     return (
         <>
-        <div><a href='/'>Home</a></div>
+        <div><a href='/'>Go Home</a></div>
+        <h2>Please Select A Category And Scroll Down...</h2>
         <form className="flexCont" onSubmit={handleSubmit}>
             <select onChange={handleChange}>
                 <option defaultValue={'Pick A Category'} hidden>Pick A Category</option>
-                {Array.isArray(categories) ?
+                {Array.isArray(categories)
+                ?
                 categories.map(category => <option key={category.category} value={category.value}>{category.category}</option>)
-                : ""}
+                :
+                ""}
             </select>
             <button type='submit'>Submit</button>
         </form>

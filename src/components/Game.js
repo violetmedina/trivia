@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Card from './Card';
 import Answer from './Answer';
-import Reveal from './Reveal';
 import './main.css';
-import he from 'he';
-
 
 const Game = ({ value, text }) => {
 
     // receive info from API from parent component, Categories, then display Q and A, A in random order
     const [triviaData, setTriviaData] = useState([])
+    const [shuffledAnswers, setShuffledAnswers] = useState([])
 
     const answersDisplay = useSelector(state => state.answerReducer.answers)
     const cAnswer = useSelector(state => state.answerReducer.cAnswer)
-    const pickedAnswer = useSelector(state => state.answerReducer.pickedAnswer)
-    const isCorrect = useSelector(state => state.answerReducer.isCorrect)
+
+    console.log(answersDisplay)
+    console.log(shuffledAnswers)
+    console.log(cAnswer)
 
     useEffect(() => {
 
@@ -30,9 +30,10 @@ const Game = ({ value, text }) => {
 
     useEffect(() => {
 
-        // shuffleArray(answersDisplay)
+        setShuffledAnswers(shuffleArray(answersDisplay))
 
-        }, [])
+    }, [answersDisplay])
+
 
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
@@ -43,7 +44,6 @@ const Game = ({ value, text }) => {
         }
         return array;
     }
-
 
     return (
         <>

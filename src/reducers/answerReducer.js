@@ -32,8 +32,13 @@ const reducer = (state, action) =>{
                 cAnswer: action.correct,
                 isCorrect: "default",
                 activeCard: action.index.toString()
-
             }
+
+        // case "SHUFFLE_ANSWERS":
+        //     return {
+        //         ...state,
+        //         answers: "test"
+        //     }
 
         case "PICK_ANSWER":
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import combineAnswers from '../actions/answersAction';
 import './main.css'
@@ -7,9 +7,7 @@ import he from 'he'
 const Card = ({question, index}) => {
 
     const [isFlipped, setIsFlipped] = useState(false)
-    const [hideAnswer, setHideAnswer] = useState(false)
 
-    // const isCorrect = useSelector(state => state.answerReducer.isCorrect)
     const amICorrect = useSelector(state => state.answerReducer.boardState[index])
 
 

@@ -1,50 +1,66 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import correctAnswer from '../actions/correctAnswer';
-import Reveal from './Reveal';
-import Hide from './Hide';
+import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import './main.css'
 import he from 'he'
 
-const Answer = ({answer, index}) => {
+const Answer = ({ answer, index }) => {
 
-    const answersDisplay = useSelector(state => state.answerReducer.answers)
-    const cAnswer = useSelector(state => state.answerReducer.cAnswer)
-    const pickedAnswer = useSelector(state => state.answerReducer.pickedAnswer)
-    const isCorrect = useSelector(state => state.answerReducer.isCorrect)
+  const cAnswer = useSelector(state => state.answerReducer.cAnswer)
+  const pickedAnswer = useSelector(state => state.answerReducer.pickedAnswer)
+  const isCorrect = useSelector(state => state.answerReducer.isCorrect)
 
-    const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
 
-    const [showAnswer, setShowAnswer] = useState(false)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    const handleAnswer = (e, answer) => {
-        e.preventDefault();
-        determineAnswer(cAnswer, answer);
-        onClick();
-      }
+  const dispatch = useDispatch();
 
-      function determineAnswer(cAnswer, answer) {
-        console.log("Correct Answer:", cAnswer);
-        console.log("Selected Answer:", answer);
-        dispatch(correctAnswer(cAnswer, answer));
-    }
+  const handleAnswer = (e, answer) => {
+    e.preventDefault();
+    determineAnswer(cAnswer, answer);
+    handleShow();
+  }
 
-    const onClick = () => setShowAnswer(!showAnswer);
+  function determineAnswer(cAnswer, answer) {
+    console.log("Correct Answer:", cAnswer);
+    console.log("Selected Answer:", answer);
+    dispatch(correctAnswer(cAnswer, answer));
+  }
 
-    return (
-      <>
 
-        <form className='d-flex flex-column'>
+  return (
+    <>
+
+      <form className='d-flex flex-column'>
           <Button variant="dark" onClick={(e) => handleAnswer(e, answer)}>{index +1}. {he.decode(answer)}</Button>{' '}
         </form>
         <br></br>
-        {showAnswer ? <RevealAnswer /> : <Hide />}
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {isCorrect === "yes" ? "CORRECT! O marks the spot!" : "INCORRECT... X marks the spot."}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <b>Your Answer is:</b> {he.decode(pickedAnswer)}<br />
+          <b>The Correct Answer is:</b> {he.decode(cAnswer)}<br /><br />
+
+          Please select another card...
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
 
-)
+  )
 }
-
-const RevealAnswer = () => <Reveal/>;
 
 export default Answer;
