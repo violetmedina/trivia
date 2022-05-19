@@ -34,12 +34,6 @@ const reducer = (state, action) =>{
                 activeCard: action.index.toString()
             }
 
-        // case "SHUFFLE_ANSWERS":
-        //     return {
-        //         ...state,
-        //         answers: "test"
-        //     }
-
         case "PICK_ANSWER":
 
                 if(action.cAnswer === action.answer){
@@ -60,6 +54,7 @@ const reducer = (state, action) =>{
                         boardState: {...state.boardState, [state.activeCard]: [true, 'no']}
                     }
                 }
+            
 
         default: return state
     }

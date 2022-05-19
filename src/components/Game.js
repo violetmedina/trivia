@@ -3,17 +3,19 @@ import { useSelector } from 'react-redux';
 import Card from './Card';
 import Answer from './Answer';
 import './main.css';
+import he from 'he';
 
 const Game = ({ value, text }) => {
 
     // receive info from API from parent component, Categories, then display Q and A, A in random order
     const [triviaData, setTriviaData] = useState([])
     const [shuffledAnswers, setShuffledAnswers] = useState([])
+    const [showAnswers, setShowAnswers] = useState(true);
 
-    const answersDisplay = useSelector(state => state.answerReducer.answers)
+    const answersArr = useSelector(state => state.answerReducer.answers)
     const cAnswer = useSelector(state => state.answerReducer.cAnswer)
 
-    console.log(answersDisplay)
+    console.log(answersArr)
     console.log(shuffledAnswers)
     console.log(cAnswer)
 
@@ -30,9 +32,10 @@ const Game = ({ value, text }) => {
 
     useEffect(() => {
 
-        setShuffledAnswers(shuffleArray(answersDisplay))
+        setShuffledAnswers(shuffleArray(answersArr))
+        setShowAnswers(true);
 
-    }, [answersDisplay])
+    }, [answersArr])
 
 
     function shuffleArray(array) {
@@ -45,11 +48,14 @@ const Game = ({ value, text }) => {
         return array;
     }
 
+    // const handleShowAnswers = () => setShowAnswers(false);
+
     return (
         <>
             <br /><h2>Selected Category: <b>{text}</b></h2>
-            <h2>Click on a Square... Make A Tic-Tac-Toe to Win!</h2>
-            <h4>If You Are Correct, you get an 'O', otherwise you get an 'X'. Three 'O's Wins!</h4>
+            <h2>Click on a Card... Answer Below.<br/> Make A Tic-Tac-Toe to Win!</h2>
+            <h4>Correct answers mark the card 'O' <br/> Incorrect answers mark the card with an 'X'.</h4>
+            <br/><h1>Three 'O's Wins!</h1>
 
             <div className="container">
                 <div className="row">
@@ -63,23 +69,12 @@ const Game = ({ value, text }) => {
                 </div>
             </div>
 
-            <div className="container"><br />
+            <div className="container"
+            // onClick={handleShowAnswers}
+            ><br />
                 <h5>
-                    Answers:
                     <div className="row">
-                        {answersDisplay !== undefined
-                            ?
-                            answersDisplay.map((answer, index) => {
-                                return (
-                                    <div key={index} className='col-6'>
-                                        <div>
-                                            <Answer answer={answer} index={index} />
-                                        </div>
-                                    </div>
-                                )
-                            })
-                            : ""
-                        }
+                        {showAnswers ? <DisplayAnswers answersArr={answersArr} setShowAnswers={setShowAnswers}/> : null}
                     </div>
                 </h5>
 
@@ -92,4 +87,24 @@ const Game = ({ value, text }) => {
     ) //end of return
 } //end of function Game
 
+const DisplayAnswers = ({answersArr, setShowAnswers}) => {
+    return (
+        <>
+        <div>Answers:</div><br/><br/>
+        {answersArr !== undefined
+            ?
+            answersArr.map((answer, index) => {
+                return (
+                    <div key={index} className='col-6'>
+                        <div>
+                            <Answer answer={he.decode(answer)} index={index} setShowAnswers={setShowAnswers} />
+                            {/* {showAnswers ? <DisplayAnswers answer={answer} index={index}/> : null} */}
+                        </div>
+                    </div>
+                )
+            })
+            : ""
+        }
+        </>
+    )}
 export default Game

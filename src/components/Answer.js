@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import './main.css'
 import he from 'he'
 
-const Answer = ({ answer, index }) => {
+const Answer = ({ answer, index, setShowAnswers }) => {
 
   const cAnswer = useSelector(state => state.answerReducer.cAnswer)
   const pickedAnswer = useSelector(state => state.answerReducer.pickedAnswer)
@@ -14,8 +14,12 @@ const Answer = ({ answer, index }) => {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false); //to close the modal
+    setShowAnswers(false);
+  }
+
+  const handleShow = () => setShow(true); //to pop up the modal
 
   const dispatch = useDispatch();
 
@@ -36,7 +40,7 @@ const Answer = ({ answer, index }) => {
     <>
 
       <form className='d-flex flex-column'>
-          <Button variant="dark" onClick={(e) => handleAnswer(e, answer)}>{index +1}. {he.decode(answer)}</Button>{' '}
+          <Button variant="dark" onClick={(e) => handleAnswer(e, answer)}>{index +1}. {answer}</Button>{' '}
         </form>
         <br></br>
 

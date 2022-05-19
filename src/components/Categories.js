@@ -47,8 +47,13 @@ const Categories = () => {
             </select>
             <button type='submit'>Submit</button>
         </form>
+        <br/>
+        <img src='./downArrowAnimated.gif' size='50px'/>
+        <img src='./downArrowAnimated.gif' size='50px'/>
+        <img src='./downArrowAnimated.gif' size='50px'/>
+        <br/>
         {finalValue !== "" ? <Game value={finalValue} text={finalCategory}/> : null}
-
+        <br/><br/><br/><br/><br/>
         </>
     )
 }

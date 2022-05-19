@@ -50,6 +50,7 @@ const Card = ({question, index}) => {
                         }>
                         <div id="questionDetails">
                                 <b>{he.decode(question.question)}</b>
+                                {console.log((index+1), question.question)}
                         </div>
                     </div>
                 </div>
