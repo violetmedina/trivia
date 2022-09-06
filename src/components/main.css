@@ -1,9 +1,15 @@
-
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    width: auto;
+}
 
 .card {
     margin: 0px;
     width: 15vw;
-    height: 32vh;
+    height: 25vh;
     perspective: 1000px;
     background-color:transparent !important;
     border: white;

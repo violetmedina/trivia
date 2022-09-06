@@ -1,7 +1,5 @@
 
-// ANSWERS
-
-const reducer = (state, action) =>{
+const answerReducer = (state, action) =>{
 
     if(state === undefined){
         state = {
@@ -34,31 +32,31 @@ const reducer = (state, action) =>{
                 activeCard: action.index.toString()
             }
 
-        case "PICK_ANSWER":
-
-                if(action.cAnswer === action.answer){
-                    // console.log("Correct Answer!");
-                    return {
-                        ...state,
-                        pickedAnswer: action.answer,
-                        isCorrect: "yes",
-                        boardState: {...state.boardState, [state.activeCard]: [true, 'yes']}
-                    }
+        case "CHECK_ANSWER":
+            if(action.cAnswer === action.answer){
+                return {
+                    ...state,
+                    pickedAnswer: action.answer,
+                    isCorrect: "yes",
+                    boardState: {...state.boardState, [state.activeCard]: [true, 'yes']}
                 }
-                else{
-                    // console.log("Incorrect Answer!");
-                    return {
-                        ...state,
-                        pickedAnswer: action.answer,
-                        isCorrect: "no",
-                        boardState: {...state.boardState, [state.activeCard]: [true, 'no']}
-                    }
+            }
+            else{
+                return {
+                    ...state,
+                    pickedAnswer: action.answer,
+                    isCorrect: "no",
+                    boardState: {...state.boardState, [state.activeCard]: [true, 'no']}
                 }
-            
+            }
+        // case "UPDATE_BOARD":
+        //     return {
+        //         boardState: state.boardState
+        //     }
 
         default: return state
     }
 
 }
-export default reducer
+export default answerReducer
 

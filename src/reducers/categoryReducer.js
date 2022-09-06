@@ -1,9 +1,5 @@
 
-//CATEGORIES
-
-const reducer = (state, action) => {
-
-    //if no state has been defined yet, then reducer needs to define it
+const categoriesReducer = (state, action) => {
 
     if(state === undefined){
         state = {
@@ -25,4 +21,4 @@ const reducer = (state, action) => {
     }
 }
 
-export default reducer;
+export default categoriesReducer;
