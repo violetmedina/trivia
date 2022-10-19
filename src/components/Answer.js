@@ -23,6 +23,7 @@ const Answer = ({ answer, index, setShowAnswers }) => {
   const handleClose = () => {
     setShow(false); //to close the modal
     setShowAnswers(false);
+    correctAnswer();
   }
 
   const handleShow = () => setShow(true); //to pop up the modal
@@ -35,37 +36,21 @@ const Answer = ({ answer, index, setShowAnswers }) => {
 
   function determineAnswer(cAnswer, answer) {
     dispatch(checkAnswer(cAnswer, answer));
-    // //!
-
-    if (gameBoard[0] === [true, "yes"] &&
-        gameBoard[1] === [true, "yes"] &&
-        gameBoard[2] === [true, "yes"] ||
-        gameBoard[3] === [true, "yes"] &&
-        gameBoard[4] === [true, "yes"] &&
-        gameBoard[5] === [true, "yes"] ||
-        gameBoard[6] === [true, "yes"] &&
-        gameBoard[7] === [true, "yes"] &&
-        gameBoard[8] === [true, "yes"] ||
-        gameBoard[0] === [true, "yes"] &&
-        gameBoard[3] === [true, "yes"] &&
-        gameBoard[6] === [true, "yes"] ||
-        gameBoard[1] === [true, "yes"] &&
-        gameBoard[4] === [true, "yes"] &&
-        gameBoard[7] === [true, "yes"] ||
-        gameBoard[2] === [true, "yes"] &&
-        gameBoard[5] === [true, "yes"] &&
-        gameBoard[8] === [true, "yes"] ||
-        gameBoard[0] === [true, "yes"] &&
-        gameBoard[4] === [true, "yes"] &&
-        gameBoard[8] === [true, "yes"] ||
-        gameBoard[2] === [true, "yes"] &&
-        gameBoard[4] === [true, "yes"] &&
-        gameBoard[6] === [true, "yes"]) {
-          console.log("winnerO")
-        }
-
   }
 
+  function correctAnswer() {
+    if ((gameBoard[0] === [true, "yes"] && gameBoard[1] === [true, "yes"] && gameBoard[2] === [true, "yes"]) ||
+        (gameBoard[3] === [true, "yes"] && gameBoard[4] === [true, "yes"] && gameBoard[5] === [true, "yes"]) ||
+        (gameBoard[6] === [true, "yes"] && gameBoard[7] === [true, "yes"] && gameBoard[8] === [true, "yes"]) ||
+        (gameBoard[0] === [true, "yes"] && gameBoard[3] === [true, "yes"] && gameBoard[6] === [true, "yes"]) ||
+        (gameBoard[1] === [true, "yes"] && gameBoard[4] === [true, "yes"] && gameBoard[7] === [true, "yes"]) ||
+        (gameBoard[2] === [true, "yes"] && gameBoard[5] === [true, "yes"] && gameBoard[8] === [true, "yes"]) ||
+        (gameBoard[0] === [true, "yes"] && gameBoard[4] === [true, "yes"] && gameBoard[8] === [true, "yes"]) ||
+        (gameBoard[2] === [true, "yes"] && gameBoard[4] === [true, "yes"] && gameBoard[6] === [true, "yes"]))
+        {
+          console.log("WINNER")
+        }
+      }
 
 return (
   <>
@@ -82,8 +67,8 @@ return (
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <b>Your Answer is:</b> {he.decode(pickedAnswer)}<br />
-        <b>The Correct Answer is:</b> {he.decode(cAnswer)}<br /><br />
+        {/* <p><b>Your Answer:</b>{he.decode(pickedAnswer)}</p>
+        <p><b>The Correct Answer:</b>{he.decode(cAnswer)}</p> */}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
