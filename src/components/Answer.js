@@ -67,8 +67,8 @@ return (
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <p><b>Your Answer:</b>{he.decode(pickedAnswer)}</p>
-        <p><b>The Correct Answer:</b>{he.decode(cAnswer)}</p> */}
+        <p><b>Your Answer:</b> {he.decode(pickedAnswer)}</p>
+        <p><b>The Correct Answer:</b> {he.decode(cAnswer)}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

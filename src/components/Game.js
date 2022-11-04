@@ -48,8 +48,6 @@ const Game = ({ value, text }) => {
     return (
         <>
             <h2>Selected Category: <b>{text}</b></h2>
-            {/* <h1>Three 'O's Wins! <i className="fa-solid fa-arrow-down"></i></h1> */}
-
             <div className="container">
                 <div className="row">
                     {triviaData.map((question, index) => {
