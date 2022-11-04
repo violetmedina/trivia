@@ -1,5 +1,3 @@
-# Redux 101 Lab
+# Trivia Tic-Tac-Toe Game
 
-- Redux Counter Class
-- Redux Counter Hooks 
-- Form
+This fun game was created with React.js and uses heavy logic for a fun game based on Hollywood Squares.
