@@ -15,9 +15,9 @@ const Game = ({ value, text }) => {
     const answersArr = useSelector(state => state.answerReducer.answers)
     const cAnswer = useSelector(state => state.answerReducer.cAnswer)
 
-    console.log(answersArr)
-    console.log(shuffledAnswers)
-    console.log(cAnswer)
+    // console.log(answersArr)
+    // console.log(shuffledAnswers)
+    // console.log(cAnswer)
 
     useEffect(() => {
 
@@ -31,12 +31,9 @@ const Game = ({ value, text }) => {
     }, [])
 
     useEffect(() => {
-
         setShuffledAnswers(shuffleArray(answersArr))
         setShowAnswers(true);
-
     }, [answersArr])
-
 
     function shuffleArray(array) {
         for (var i = array.length - 1; i > 0; i--) {
@@ -48,63 +45,54 @@ const Game = ({ value, text }) => {
         return array;
     }
 
-    // const handleShowAnswers = () => setShowAnswers(false);
-
     return (
         <>
-            <br /><h2>Selected Category: <b>{text}</b></h2>
-            <h2>Click on a Card... Answer Below.<br/> Make A Tic-Tac-Toe to Win!</h2>
-            <h4>Correct answers mark the card 'O' <br/> Incorrect answers mark the card with an 'X'.</h4>
-            <br/><h1>Three 'O's Wins!</h1>
+            <h2>Selected Category: <b>{text}</b></h2>
+            {/* <h1>Three 'O's Wins! <i className="fa-solid fa-arrow-down"></i></h1> */}
 
             <div className="container">
                 <div className="row">
                     {triviaData.map((question, index) => {
                         return (
                             <div key={index} id="cards" className="col-4 d-flex flex-wrap justify-content-center">
-                                <Card question={question} index={index}/>
+                                <Card question={question} index={index} />
                             </div>
                         )
                     })}
                 </div>
             </div>
+            <h4>Correct answers mark the card 'O'. Click on a Card... Make A Tic-Tac-Toe to Win!</h4>
 
-            <div className="container"
-            // onClick={handleShowAnswers}
-            ><br />
+            <div className="container">
                 <h5>
                     <div className="row">
-                        {showAnswers ? <DisplayAnswers answersArr={answersArr} setShowAnswers={setShowAnswers}/> : null}
+                        {showAnswers ? <DisplayAnswers answersArr={answersArr} setShowAnswers={setShowAnswers} /> : null}
                     </div>
                 </h5>
-
-                <h5>
-                    <div><a href='/'>Reset Game</a></div>
-                </h5>
             </div>
-            <br /><br /><br /><br />
         </>
     ) //end of return
 } //end of function Game
 
-const DisplayAnswers = ({answersArr, setShowAnswers}) => {
+const DisplayAnswers = ({ answersArr, setShowAnswers }) => {
     return (
         <>
-        <div>Answers:</div><br/><br/>
-        {answersArr !== undefined
-            ?
-            answersArr.map((answer, index) => {
-                return (
-                    <div key={index} className='col-6'>
-                        <div>
-                            <Answer answer={he.decode(answer)} index={index} setShowAnswers={setShowAnswers} />
-                            {/* {showAnswers ? <DisplayAnswers answer={answer} index={index}/> : null} */}
+            <div>Answers:</div><br /><br />
+            {answersArr !== undefined
+                ?
+                answersArr.map((answer, index) => {
+                    return (
+                        <div key={index} className='col-6'>
+                            <div>
+                                <Answer answer={he.decode(answer)} index={index} setShowAnswers={setShowAnswers} />
+                                {/* {showAnswers ? <DisplayAnswers answer={answer} index={index}/> : null} */}
+                            </div>
                         </div>
-                    </div>
-                )
-            })
-            : ""
-        }
+                    )
+                })
+                : ""
+            }
         </>
-    )}
+    )
+}
 export default Game

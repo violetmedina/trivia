@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux'
-
+import logger from 'redux-logger';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -15,8 +15,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import rootReducer from './reducers';
 
 //Reducer.createStore()
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())//reducer
+const store = createStore(rootReducer, composeEnhancer(applyMiddleware(logger)))//reducer
 
 ReactDOM.render(
 
